@@ -1,0 +1,4 @@
+name: ImpactLib
+version: '${version}'
+main: pl.moderr.impactlib.ImpactLib
+api-version: 1.18
