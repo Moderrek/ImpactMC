@@ -1,4 +1,4 @@
-package pl.impact.lib.api.noise;
+package com.impact.lib.api.noise;
 
 public class WhiteNoise2D extends Noise2D {
     @Override

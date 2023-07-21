@@ -1,4 +1,4 @@
-package pl.impact.lib.api.gui;
+package com.impact.lib.api.gui;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryView;

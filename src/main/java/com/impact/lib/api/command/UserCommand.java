@@ -1,4 +1,4 @@
-package pl.impact.lib.api.command;
+package com.impact.lib.api.command;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import pl.impact.lib.api.container.User;
+import com.impact.lib.api.container.User;
 
 import java.util.List;
 import java.util.Optional;

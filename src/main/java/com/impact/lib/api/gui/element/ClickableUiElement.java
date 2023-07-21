@@ -1,9 +1,8 @@
-package pl.impact.lib.api.gui.element;
+package com.impact.lib.api.gui.element;
 
+import com.impact.lib.api.gui.event.GuiClickEvent;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.api.gui.UiElement;
-import pl.impact.lib.api.gui.event.GuiClickEvent;
 
-public abstract class ClickableUiElement extends UiElement {
-    public abstract void onClick(@NotNull final GuiClickEvent event);
+public interface ClickableUiElement {
+    void onClick(@NotNull final GuiClickEvent event);
 }

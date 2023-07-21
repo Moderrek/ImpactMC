@@ -1,4 +1,4 @@
-package pl.impact.lib.api.container;
+package com.impact.lib.api.container;
 
 import java.util.Optional;
 import java.util.UUID;

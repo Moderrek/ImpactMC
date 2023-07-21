@@ -1,6 +1,7 @@
-package pl.impact.lib.api.player;
+package com.impact.lib.api.player;
 
 import com.destroystokyo.paper.ClientOption;
+import com.impact.lib.api.world.ImpactWorld;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import pl.impact.lib.api.gui.Gui;
+import com.impact.lib.api.gui.Gui;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -21,6 +22,10 @@ public class ImpactPlayer {
 
     public ImpactPlayer(@NotNull final Player player) {
         this.bukkitPlayer = player;
+    }
+
+    public ImpactWorld getImpactWorld() {
+        return new ImpactWorld(bukkitPlayer.getWorld());
     }
 
     public String getName() {

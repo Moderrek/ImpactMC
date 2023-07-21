@@ -1,4 +1,4 @@
-package pl.impact.lib.api.util;
+package com.impact.lib.api.util;
 
 class MinecraftTimeTest {
 

@@ -1,4 +1,4 @@
-package pl.impact.lib.api.gui;
+package com.impact.lib.api.gui;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;

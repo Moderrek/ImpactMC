@@ -1,11 +1,11 @@
-package pl.impact.lib.api.util;
+package com.impact.lib.api.util;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.inventory.ItemStack;
-import pl.impact.lib.Impact;
+import com.impact.lib.Impact;
 
 import java.util.Arrays;
 import java.util.Collection;

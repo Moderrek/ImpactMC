@@ -1,12 +1,12 @@
-package pl.impact.lib.api.gui.element;
+package com.impact.lib.api.gui.element;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.api.gui.GuiView;
-import pl.impact.lib.api.gui.UiElement;
-import pl.impact.lib.api.util.ItemBuilder;
+import com.impact.lib.api.gui.GuiView;
+import com.impact.lib.api.gui.UiElement;
+import com.impact.lib.api.util.ItemBuilder;
 
 /**
  * Represents static GUI element.

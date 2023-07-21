@@ -1,8 +1,8 @@
-package pl.impact.lib.api.input;
+package com.impact.lib.api.input;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.Impact;
+import com.impact.lib.Impact;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;

@@ -1,8 +1,8 @@
-package pl.impact.lib.api.gui;
+package com.impact.lib.api.gui;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import pl.impact.lib.api.gui.element.EmptyUiElement;
+import com.impact.lib.api.gui.element.EmptyUiElement;
 
 import java.util.Collection;
 import java.util.Map;
@@ -94,6 +94,11 @@ public class GuiContent implements GuiContentBase<UiElement> {
     @Override
     public void fillUiElements(@NotNull UiElement value) {
         fillUiElements(value, null);
+    }
+
+    @Override
+    public void clearUiElements() {
+        fillUiElements(EmptyUiElement.create());
     }
 
 

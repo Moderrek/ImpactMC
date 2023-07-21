@@ -1,4 +1,4 @@
-package pl.impact.lib.api.gui;
+package com.impact.lib.api.gui;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,9 +9,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.api.gui.element.ClickableUiElement;
-import pl.impact.lib.api.gui.event.ClickType;
-import pl.impact.lib.api.gui.event.GuiClickEvent;
+import com.impact.lib.api.gui.element.ClickableUiElement;
+import com.impact.lib.api.gui.event.ClickType;
+import com.impact.lib.api.gui.event.GuiClickEvent;
 
 import java.util.Objects;
 import java.util.Optional;

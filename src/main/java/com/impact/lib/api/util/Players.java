@@ -1,9 +1,9 @@
-package pl.impact.lib.api.util;
+package com.impact.lib.api.util;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import pl.impact.lib.api.gui.Gui;
+import com.impact.lib.api.gui.Gui;
 
 import java.util.Collection;
 

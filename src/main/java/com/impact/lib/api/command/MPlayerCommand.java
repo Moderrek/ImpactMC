@@ -1,12 +1,13 @@
-package pl.impact.lib.api.command;
+package com.impact.lib.api.command;
 
+import com.impact.lib.ImpactLibPlugin;
+import com.impact.lib.api.gui.Gui;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,24 +17,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import pl.impact.lib.ImpactLibPlugin;
-import pl.impact.lib.api.gui.Gui;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 public abstract class MPlayerCommand extends MCommand<Player> {
 
-    private transient Player last_perfomed_player;
-    private transient String[] last_args;
+    private transient Player player;
 
     public MPlayerCommand(@NotNull Plugin plugin, @NotNull String key) {
         super(plugin, key);
-        last_perfomed_player = null;
-        last_args = null;
     }
 
     public @NotNull Optional<Component> cantUseCommandMessage() {
@@ -53,11 +48,9 @@ public abstract class MPlayerCommand extends MCommand<Player> {
             return true;
         }
         // player
-        last_perfomed_player = player;
-        last_args = args;
+        this.player = player;
         perform(player, command, args.length, args);
-        last_perfomed_player = null;
-        last_args = null;
+        this.player = null;
         return true;
     }
 
@@ -66,13 +59,13 @@ public abstract class MPlayerCommand extends MCommand<Player> {
         return null;
     }
 
-    private void checkScope() {
-        if(last_perfomed_player == null || last_args == null) throw new RuntimeException("Out of scope!");
+    private void checkPlayerScope() {
+        if(player == null) throw new RuntimeException("Out of scope!");
     }
 
     protected final Player player() {
         checkScope();
-        return last_perfomed_player;
+        return player;
     }
 
     protected final Optional<Player> player(@Nullable final UUID mcid) {
@@ -100,49 +93,14 @@ public abstract class MPlayerCommand extends MCommand<Player> {
         return Bukkit.getPlayer(mcname) != null;
     }
 
-    protected final Player plr() {
-        checkScope();
-        return last_perfomed_player;
-    }
-
-    protected final int argc() {
-        checkScope();
-        return last_args.length;
-    }
-
-    protected final int argsCount() {
-        checkScope();
-        return last_args.length;
-    }
-
-    protected final @NotNull Optional<String> getArg(final int index) {
-        checkScope();
-        if (index < 0) return Optional.empty();
-        if (index >= last_args.length) return Optional.empty();
-        return Optional.of(last_args[index]);
-    }
-
-    protected final @NotNull Optional<String> arg(final int index) {
-        checkScope();
-        return getArg(index);
-    }
-
-    protected final void ifArg(final int index, Consumer<String> action) {
-        getArg(index).ifPresent(action);
-    }
-
-    protected final void ifArgOrElse(final int index, Consumer<String> action, Runnable emptyAction) {
-        getArg(index).ifPresentOrElse(action, emptyAction);
-    }
-
     protected final @NotNull Location location() {
         checkScope();
-        return last_perfomed_player.getLocation();
+        return player.getLocation();
     }
 
     protected final @NotNull World world() {
         checkScope();
-        return last_perfomed_player.getWorld();
+        return player.getWorld();
     }
 
     protected final @NotNull Optional<World> world(@Nullable final String name) {
@@ -151,51 +109,9 @@ public abstract class MPlayerCommand extends MCommand<Player> {
         return Optional.ofNullable(Bukkit.getWorld(name));
     }
 
-    protected final boolean hasPerm(@Nullable final String permission) {
-        checkScope();
-        if(permission == null) return false;
-        return last_perfomed_player.hasPermission(permission);
-    }
-
-    protected final void ifPerm(@Nullable final String permission, Runnable action) {
-        checkScope();
-        if(permission == null) return;
-        if(last_perfomed_player.hasPermission(permission)) action.run();
-    }
-
-    protected final void ifPermOrElse(@Nullable final String permission, Runnable action, Runnable emptyAction) {
-        checkScope();
-        if(permission == null) {
-            emptyAction.run();
-            return;
-        }
-        if(last_perfomed_player.hasPermission(permission)) {
-            action.run();
-        } else {
-            emptyAction.run();
-        }
-    }
-
-    protected final void response(Component content) {
-        checkScope();
-        last_perfomed_player.sendMessage(content);
-    }
-
-    protected final void response(String strContent, TextColor color) {
-        response(Component.text(strContent).color(color));
-    }
-
-    protected final void response(String strContent) {
-        response(Component.text(strContent));
-    }
-
-    protected final void response(Object object) {
-        response(String.valueOf(object));
-    }
-
     protected final void responseActionBar(Component content) {
         checkScope();
-        last_perfomed_player.sendActionBar(content);
+        player.sendActionBar(content);
     }
 
     protected final void responseActionBar(String strContent, TextColor color) {
@@ -213,7 +129,7 @@ public abstract class MPlayerCommand extends MCommand<Player> {
     protected final void responseSound(@Nullable final Sound sound, final float volume, final float pitch) {
         checkScope();
         if(sound == null) return;
-        last_perfomed_player.playSound(location(), sound, volume, pitch);
+        player.playSound(location(), sound, volume, pitch);
     }
 
     protected final void responseSound(@Nullable final Sound sound, final float volume) {
@@ -227,21 +143,21 @@ public abstract class MPlayerCommand extends MCommand<Player> {
     protected final boolean openGui(@Nullable final Gui gui) {
         checkScope();
         if(gui == null) return false;
-        gui.open(last_perfomed_player);
+        gui.open(player);
         return true;
     }
 
     protected final boolean openInventory(@Nullable final Inventory inventory) {
         checkScope();
         if(inventory == null) return false;
-        last_perfomed_player.openInventory(inventory);
+        player.openInventory(inventory);
         return true;
     }
 
     protected final boolean openInventory(@Nullable final InventoryView inventory) {
         checkScope();
         if(inventory == null) return false;
-        last_perfomed_player.openInventory(inventory);
+        player.openInventory(inventory);
         return true;
     }
 
@@ -260,21 +176,21 @@ public abstract class MPlayerCommand extends MCommand<Player> {
     protected final boolean teleport(@Nullable final Location to) {
         checkScope();
         if(to == null) return false;
-        last_perfomed_player.teleport(to);
+        player.teleport(to);
         return true;
     }
 
     protected final boolean move(@Nullable final Location to) {
         checkScope();
         if(to == null) return false;
-        last_perfomed_player.teleport(to);
+        player.teleport(to);
         return true;
     }
 
     protected final void giveItem(@Nullable ItemStack item) {
         checkScope();
         if(item == null) return;
-        last_perfomed_player.getInventory().addItem(item);
+        player.getInventory().addItem(item);
     }
 
     protected final void give(@Nullable ItemStack item) {
@@ -283,7 +199,29 @@ public abstract class MPlayerCommand extends MCommand<Player> {
 
     protected final @NotNull CompletableFuture<Optional<String>> inputChat() {
         checkScope();
-        return ImpactLibPlugin.getInstance().getInputModule().requestChatInput(last_perfomed_player);
+        return ImpactLibPlugin.getInstance().getInputModule().requestChatInput(player);
+    }
+
+    protected final Optional<Block> targetBlock(int distance) {
+        checkScope();
+        Block target = player.getTargetBlockExact(distance);
+        return Optional.ofNullable(target);
+    }
+
+    protected final Optional<BlockFace> targetFace(int distance) {
+        checkScope();
+        BlockFace target = player.getTargetBlockFace(distance);
+        return Optional.ofNullable(target);
+    }
+
+    protected final Optional<ItemStack> itemInHand() {
+        checkScope();
+        return Optional.ofNullable(player.getActiveItem());
+    }
+
+    protected final @NotNull Chunk chunk() {
+        checkScope();
+        return player.getChunk();
     }
 
 }

@@ -1,13 +1,15 @@
-package pl.impact.lib.api.gui;
+package com.impact.lib.api.gui;
 
+import com.impact.lib.Impact;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.api.gui.event.GuiClickEvent;
+import com.impact.lib.api.gui.event.GuiClickEvent;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -15,9 +17,12 @@ import java.util.function.Consumer;
  */
 public abstract class UiElement implements UiElementBase<GuiView>, Cloneable {
 
-    private transient Consumer<GuiClickEvent> clickConsumer = null;
+
     private transient Gui owner = null;
     private int slotIndex = -1;
+
+    private transient Consumer<GuiClickEvent> clickConsumer = null;
+    private transient Collection<BukkitTask> timers = new ArrayList<>();
 
     /**
      * Sets gui and slot
@@ -40,6 +45,30 @@ public abstract class UiElement implements UiElementBase<GuiView>, Cloneable {
     final void callClick(@NotNull final GuiClickEvent event) {
         // call to handler
         Optional.ofNullable(clickConsumer).ifPresent(consumer -> consumer.accept(event));
+    }
+
+    final void callDestroy() {
+        // clear timers
+//        Iterator<BukkitTask> i = timers.iterator();
+//        while(i.hasNext()) {
+//            BukkitTask task = i.next();
+//            Impact.cancelTask(task);
+//            i.remove();
+//        }
+        timers.forEach(Impact::cancelTask);
+        timers.clear();
+    }
+
+    protected final void delay(long ticks, Runnable action) {
+        timers.add(Impact.laterTask(getPlugin(), action, ticks));
+    }
+
+    protected final void timer(long ticksPeriod, Runnable action) {
+        timers.add(Impact.repeatingTask(getPlugin(), action, ticksPeriod));
+    }
+
+    protected final void tick(Runnable action) {
+        timers.add(Impact.repeatingTask(getPlugin(), action, 1L));
     }
 
     /**
@@ -67,6 +96,16 @@ public abstract class UiElement implements UiElementBase<GuiView>, Cloneable {
      */
     public final Gui getGui() {
         return owner;
+    }
+
+    /**
+     * Gets the Plugin
+     *
+     * @return The Plugin
+     */
+    @Contract(pure = true)
+    public final @NotNull Plugin getPlugin() {
+        return owner.getPlugin();
     }
 
     /**

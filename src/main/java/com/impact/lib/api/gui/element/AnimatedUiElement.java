@@ -1,12 +1,10 @@
-package pl.impact.lib.api.gui.element;
+package com.impact.lib.api.gui.element;
 
+import com.impact.lib.api.gui.GuiView;
+import com.impact.lib.api.gui.UiElement;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.Impact;
-import pl.impact.lib.api.gui.GuiView;
-import pl.impact.lib.api.gui.UiElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +22,7 @@ public final class AnimatedUiElement extends UiElement {
     private ItemStack currentItemStack;
     private int currentIndex = 0;
 
-    private transient BukkitTask animatingTask;
+//    private transient BukkitTask animatingTask;
 
     /**
      * Constructs Animated Ui Element with given item stack collection and period ticks.
@@ -89,20 +87,27 @@ public final class AnimatedUiElement extends UiElement {
     @Override
     public void onCreate(@NotNull final GuiView where) {
         // create animating task if null
-        if (animatingTask != null) return;
-        animatingTask = Impact.repeatingTask(Impact.getImpactLibraryPlugin(), () -> {
+//        if (animatingTask != null) return;
+//        animatingTask = Impact.repeatingTask(getGui().getPlugin(), () -> {
+//            currentItemStack = itemStackList.get(currentIndex);
+//            currentIndex += 1;
+//            if (currentIndex >= itemStackList.size()) currentIndex = 0;
+//            // update this element in gui view which is created
+//            update(where);
+//        }, periodTicks);
+        timer(periodTicks, () -> {
             currentItemStack = itemStackList.get(currentIndex);
             currentIndex += 1;
             if (currentIndex >= itemStackList.size()) currentIndex = 0;
             // update this element in gui view which is created
             update(where);
-        }, periodTicks);
+        });
     }
 
     @Override
     public void onDestroy(@NotNull final GuiView where) {
         // cancel animating task
-        Impact.cancelTask(animatingTask);
+//        Impact.cancelTask(animatingTask);
     }
 
     @Override

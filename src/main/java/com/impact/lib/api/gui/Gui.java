@@ -1,4 +1,4 @@
-package pl.impact.lib.api.gui;
+package com.impact.lib.api.gui;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -13,12 +13,12 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import pl.impact.lib.Impact;
-import pl.impact.lib.ImpactLibPlugin;
-import pl.impact.lib.api.gui.element.EmptyUiElement;
-import pl.impact.lib.api.gui.event.GuiCloseEvent;
-import pl.impact.lib.api.gui.event.GuiOpenEvent;
-import pl.impact.lib.api.util.ItemBuilder;
+import com.impact.lib.Impact;
+import com.impact.lib.ImpactLibPlugin;
+import com.impact.lib.api.gui.element.EmptyUiElement;
+import com.impact.lib.api.gui.event.GuiCloseEvent;
+import com.impact.lib.api.gui.event.GuiOpenEvent;
+import com.impact.lib.api.util.ItemBuilder;
 
 import java.util.Collection;
 import java.util.Map;
@@ -124,24 +124,19 @@ public abstract class Gui extends GuiContent implements GuiBase<GuiView> {
         GuiCloseEvent closeEvent = new GuiCloseEvent(guiView);
         Impact.fireEvent(closeEvent);
         // destroy elements
-        guiView.getUiElements().forEach(uiElement -> uiElement.onDestroy(guiView));
+        guiView.getUiElements().forEach(uiElement -> {
+            uiElement.callDestroy();
+            uiElement.onDestroy(guiView);
+        });
         // remove from cache
         onClose(guiView);
         views.remove(guiView.getPlayer().getUniqueId());
         guiView.getInventoryView().close();
     }
 
-    //</editor-fold>
-
-    /**
-     * Replaces {@link UiElement} by slot index. Deconstructs earlier ui element and constructs new.
-     *
-     * @param slotIndex The slot index
-     * @param uiElement The new {@link UiElement}
-     * @return The new Ui Element
-     */
-
-    //</editor-fold> Private
+    public final void setTitle(Component title) {
+        // TODO packet
+    }
 
     /**
      * Updates all {@link UiElement} of this {@link Gui} for all players with open gui.
@@ -319,7 +314,7 @@ public abstract class Gui extends GuiContent implements GuiBase<GuiView> {
             return Optional.empty();
         }
         // register open gui
-        ImpactLibPlugin.getInstance().getGuiService().openGui(player.getUniqueId(), this);
+        ImpactLibPlugin.getInstance().getGuiModule().openGui(player.getUniqueId(), this);
         onOpen(guiView);
         return Optional.of(guiView);
     }

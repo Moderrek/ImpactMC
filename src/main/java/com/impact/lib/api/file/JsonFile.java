@@ -1,4 +1,4 @@
-package pl.impact.lib.api.file;
+package com.impact.lib.api.file;
 
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;

@@ -1,4 +1,4 @@
-package pl.impact.lib.api.container;
+package com.impact.lib.api.container;
 
 public abstract class User {
     public abstract double getMoney();

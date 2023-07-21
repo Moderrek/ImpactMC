@@ -1,4 +1,4 @@
-package pl.impact.lib.api.block;
+package com.impact.lib.api.util;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;

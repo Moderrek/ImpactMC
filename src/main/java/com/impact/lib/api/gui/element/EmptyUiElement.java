@@ -1,11 +1,11 @@
-package pl.impact.lib.api.gui.element;
+package com.impact.lib.api.gui.element;
 
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.api.gui.GuiView;
-import pl.impact.lib.api.gui.UiElement;
-import pl.impact.lib.api.util.ItemBuilder;
+import com.impact.lib.api.gui.GuiView;
+import com.impact.lib.api.gui.UiElement;
+import com.impact.lib.api.util.ItemBuilder;
 
 /**
  * Represents Empty GUI element.
@@ -22,4 +22,10 @@ public final class EmptyUiElement extends UiElement {
     public @NotNull String toString() {
         return "EmptyUiElement";
     }
+
+    @Contract(" -> new")
+    public static @NotNull EmptyUiElement create() {
+        return new EmptyUiElement();
+    }
+
 }

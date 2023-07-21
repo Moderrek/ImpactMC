@@ -1,4 +1,4 @@
-package pl.impact.lib.api.input;
+package com.impact.lib.api.input;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.entity.Player;

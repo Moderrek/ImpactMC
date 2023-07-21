@@ -1,4 +1,4 @@
-package pl.impact.lib.api.command;
+package com.impact.lib.api.command;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

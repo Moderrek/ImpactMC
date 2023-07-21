@@ -1,21 +1,21 @@
-package pl.impact.lib.api.gui;
+package com.impact.lib.api.gui;
 
+import com.impact.lib.Impact;
+import com.impact.lib.ImpactLibPlugin;
+import com.impact.lib.api.module.PluginModule;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
-import pl.impact.lib.Impact;
-import pl.impact.lib.ImpactLibPlugin;
-import pl.impact.lib.api.service.PluginModule;
 
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public final class GuiModule extends PluginModule<ImpactLibPlugin> {
 
     private final Map<UUID, Gui> openGuiMap;
+    private final GuiListener guiListener = new GuiListener(this);
 
     public GuiModule() {
         this.openGuiMap = new ConcurrentHashMap<>();
@@ -40,7 +40,6 @@ public final class GuiModule extends PluginModule<ImpactLibPlugin> {
 
     @Override
     public void enable(@NotNull final ImpactLibPlugin plugin) {
-        final GuiListener guiListener = new GuiListener(this);
         Impact.addListener(guiListener, plugin);
     }
 
@@ -48,12 +47,27 @@ public final class GuiModule extends PluginModule<ImpactLibPlugin> {
     public void disable(@NotNull final ImpactLibPlugin plugin) {
         // closes all open gui's
         openGuiMap.keySet().forEach(this::closeGui);
+        Impact.removeListener(guiListener);
     }
 
     void closeGui(UUID uuid) {
         if (!isOpenGui(uuid)) return;
         getOpenGui(uuid).invokeClose(uuid);
         openGuiMap.remove(uuid);
+    }
+
+    public Collection<Gui> getGuisByPlugin(Plugin plugin) {
+        return openGuiMap.values().stream().filter(gui -> gui.getPlugin() == plugin).distinct().collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void removeGui(Gui gui) {
+        for(UUID key : openGuiMap.keySet()) {
+            Gui other = openGuiMap.get(key);
+            if(gui == other) {
+                gui.getViews().forEach(gui::invokeClose);
+                openGuiMap.remove(key, gui);
+            }
+        }
     }
 
     public boolean isOpenGui(UUID uuid) {

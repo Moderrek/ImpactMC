@@ -1,13 +1,13 @@
-package pl.impact.lib.api.world;
+package com.impact.lib.api.world;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.Impact;
-import pl.impact.lib.api.player.ImpactPlayer;
-import pl.impact.lib.api.util.Randoms;
-import pl.impact.lib.api.util.Range;
+import com.impact.lib.Impact;
+import com.impact.lib.api.player.ImpactPlayer;
+import com.impact.lib.api.util.Randoms;
+import com.impact.lib.api.util.Range;
 
 import java.util.ArrayList;
 import java.util.Collection;

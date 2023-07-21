@@ -1,9 +1,9 @@
-package pl.impact.lib.api.gui.event;
+package com.impact.lib.api.gui.event;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import pl.impact.lib.api.gui.GuiView;
-import pl.impact.lib.api.gui.UiElement;
+import com.impact.lib.api.gui.GuiView;
+import com.impact.lib.api.gui.UiElement;
 
 public final class GuiClickEvent {
 

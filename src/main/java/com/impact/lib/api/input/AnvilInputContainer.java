@@ -1,4 +1,4 @@
-package pl.impact.lib.api.input;
+package com.impact.lib.api.input;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryView;

@@ -1,4 +1,4 @@
-package pl.impact.lib.api.command;
+package com.impact.lib.api.command;
 
 import java.util.List;
 

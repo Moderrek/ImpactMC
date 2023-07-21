@@ -1,4 +1,4 @@
-package pl.impact.lib.api.gui;
+package com.impact.lib.api.gui;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,5 +23,7 @@ public interface GuiContentBase<T extends UiElementBase<?>> {
     void fillUiElements(@NotNull T value, @NotNull Consumer<T> action);
 
     void fillUiElements(@NotNull T value);
+
+    void clearUiElements();
 
 }

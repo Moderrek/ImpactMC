@@ -1,4 +1,13 @@
+main: com.impact.lib.ImpactLibPlugin
 name: ImpactLib
 version: '${version}'
-main: pl.moderr.impactlib.ImpactLib
+description: Impact Functionality
 api-version: 1.18
+load: STARTUP
+prefix: Impact
+authors:
+  - Moderr
+libraries:
+  - com.google.code.gson:gson:2.10.1
+commands:
+  test:

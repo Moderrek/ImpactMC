@@ -1,2 +1,5 @@
-package com.impact.lib.api.block;public class TickableCustomBlock {
+package com.impact.lib.api.block;
+
+public interface TickableCustomBlock {
+    void tick();
 }

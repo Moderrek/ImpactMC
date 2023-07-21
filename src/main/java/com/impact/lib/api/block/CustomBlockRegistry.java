@@ -1,2 +1,4 @@
-package com.impact.lib.api.block;public class CustomBlockRegistry {
+package com.impact.lib.api.block;
+
+public class CustomBlockRegistry {
 }

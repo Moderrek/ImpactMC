@@ -1,4 +1,4 @@
-package pl.impact.lib.api.util;
+package com.impact.lib.api.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

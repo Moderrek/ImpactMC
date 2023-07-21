@@ -1,4 +1,4 @@
-package pl.impact.lib.api.input;
+package com.impact.lib.api.input;
 
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
@@ -6,10 +6,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import pl.impact.lib.Impact;
-import pl.impact.lib.ImpactLibPlugin;
-import pl.impact.lib.api.service.PluginModule;
-import pl.impact.lib.api.util.Items;
+import com.impact.lib.Impact;
+import com.impact.lib.ImpactLibPlugin;
+import com.impact.lib.api.module.PluginModule;
+import com.impact.lib.api.util.Items;
 
 import java.util.Map;
 import java.util.Optional;

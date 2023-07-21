@@ -1,4 +1,4 @@
-package pl.impact.lib.api.block;
+package com.impact.lib.api.util;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.DyeColor;
