@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 public interface PluginServiceBase<T extends Plugin> {
 
-    void enable(@NotNull final T plugin);
+  void enable(@NotNull final T plugin);
 
-    void disable(@NotNull final T plugin);
+  void disable(@NotNull final T plugin);
 
 }

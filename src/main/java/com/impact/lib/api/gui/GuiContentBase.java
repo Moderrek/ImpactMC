@@ -8,22 +8,22 @@ import java.util.function.Consumer;
 
 public interface GuiContentBase<T extends UiElementBase<?>> {
 
-    int getGuiSize();
+  int getGuiSize();
 
-    Collection<T> getUiElements();
+  Collection<T> getUiElements();
 
-    Optional<T> getUiElement(int slotIndex);
+  Optional<T> getUiElement(int slotIndex);
 
-    Optional<T> addUiElement(@NotNull T value);
+  Optional<T> addUiElement(@NotNull T value);
 
-    T setUiElement(int slotIndex, @NotNull T value);
+  T setUiElement(int slotIndex, @NotNull T value);
 
-    UiElement removeUiElement(int slotIndex);
+  UiElement removeUiElement(int slotIndex);
 
-    void fillUiElements(@NotNull T value, @NotNull Consumer<T> action);
+  void fillUiElements(@NotNull T value, @NotNull Consumer<T> action);
 
-    void fillUiElements(@NotNull T value);
+  void fillUiElements(@NotNull T value);
 
-    void clearUiElements();
+  void clearUiElements();
 
 }

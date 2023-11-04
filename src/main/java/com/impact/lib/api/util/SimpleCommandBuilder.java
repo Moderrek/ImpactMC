@@ -7,21 +7,21 @@ import org.jetbrains.annotations.NotNull;
 
 public class SimpleCommandBuilder {
 
-    public SimpleCommandBuilder() {
+  public SimpleCommandBuilder() {
 
-    }
+  }
 
-    public void setHandler() {
+  public void setHandler() {
 
-    }
+  }
 
-    public CommandExecutor build() {
-        return new CommandExecutor() {
-            @Override
-            public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-                return false;
-            }
-        };
-    }
+  public CommandExecutor build() {
+    return new CommandExecutor() {
+      @Override
+      public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        return false;
+      }
+    };
+  }
 
 }

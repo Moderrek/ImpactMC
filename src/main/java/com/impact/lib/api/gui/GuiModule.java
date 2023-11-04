@@ -14,67 +14,67 @@ import java.util.stream.Collectors;
 
 public final class GuiModule extends PluginModule<ImpactLibPlugin> {
 
-    private final Map<UUID, Gui> openGuiMap;
-    private final GuiListener guiListener = new GuiListener(this);
+  private final Map<UUID, Gui> openGuiMap;
+  private final GuiListener guiListener = new GuiListener(this);
 
-    public GuiModule() {
-        this.openGuiMap = new ConcurrentHashMap<>();
-    }
+  public GuiModule() {
+    this.openGuiMap = new ConcurrentHashMap<>();
+  }
 
-    public @Unmodifiable Set<Gui> getOpenGuis() {
-        return Set.copyOf(openGuiMap.values());
-    }
+  public @Unmodifiable Set<Gui> getOpenGuis() {
+    return Set.copyOf(openGuiMap.values());
+  }
 
-    void openGui(@NotNull final UUID uuid, @NotNull final Gui gui) {
-        openGuiMap.put(uuid, gui);
-    }
+  void openGui(@NotNull final UUID uuid, @NotNull final Gui gui) {
+    openGuiMap.put(uuid, gui);
+  }
 
-    /**
-     * @param player
-     * @param gui
-     * @return
-     */
-    public GuiView openGui(@NotNull final Player player, @NotNull final Gui gui) throws NoSuchElementException {
-        return gui.open(player).orElseThrow();
-    }
+  /**
+   * @param player
+   * @param gui
+   * @return
+   */
+  public GuiView openGui(@NotNull final Player player, @NotNull final Gui gui) throws NoSuchElementException {
+    return gui.open(player).orElseThrow();
+  }
 
-    @Override
-    public void enable(@NotNull final ImpactLibPlugin plugin) {
-        Impact.addListener(guiListener, plugin);
-    }
+  @Override
+  public void enable(@NotNull final ImpactLibPlugin plugin) {
+    Impact.addListener(guiListener, plugin);
+  }
 
-    @Override
-    public void disable(@NotNull final ImpactLibPlugin plugin) {
-        // closes all open gui's
-        openGuiMap.keySet().forEach(this::closeGui);
-        Impact.removeListener(guiListener);
-    }
+  @Override
+  public void disable(@NotNull final ImpactLibPlugin plugin) {
+    // closes all open gui's
+    openGuiMap.keySet().forEach(this::closeGui);
+    Impact.removeListener(guiListener);
+  }
 
-    void closeGui(UUID uuid) {
-        if (!isOpenGui(uuid)) return;
-        getOpenGui(uuid).invokeClose(uuid);
-        openGuiMap.remove(uuid);
-    }
+  void closeGui(UUID uuid) {
+    if (!isOpenGui(uuid)) return;
+    getOpenGui(uuid).invokeClose(uuid);
+    openGuiMap.remove(uuid);
+  }
 
-    public Collection<Gui> getGuisByPlugin(Plugin plugin) {
-        return openGuiMap.values().stream().filter(gui -> gui.getPlugin() == plugin).distinct().collect(Collectors.toCollection(ArrayList::new));
-    }
+  public boolean isOpenGui(UUID uuid) {
+    return openGuiMap.containsKey(uuid);
+  }
 
-    public void removeGui(Gui gui) {
-        for(UUID key : openGuiMap.keySet()) {
-            Gui other = openGuiMap.get(key);
-            if(gui == other) {
-                gui.getViews().forEach(gui::invokeClose);
-                openGuiMap.remove(key, gui);
-            }
-        }
-    }
+  public Gui getOpenGui(UUID uuid) {
+    return openGuiMap.get(uuid);
+  }
 
-    public boolean isOpenGui(UUID uuid) {
-        return openGuiMap.containsKey(uuid);
-    }
+  public Collection<Gui> getGuisByPlugin(Plugin plugin) {
+    return openGuiMap.values().stream().filter(gui -> gui.getPlugin() == plugin).distinct().collect(Collectors.toCollection(ArrayList::new));
+  }
 
-    public Gui getOpenGui(UUID uuid) {
-        return openGuiMap.get(uuid);
+  public void removeGui(Gui gui) {
+    for (UUID key : openGuiMap.keySet()) {
+      Gui other = openGuiMap.get(key);
+      if (gui == other) {
+        gui.getViews().forEach(gui::invokeClose);
+        openGuiMap.remove(key, gui);
+      }
     }
+  }
 }

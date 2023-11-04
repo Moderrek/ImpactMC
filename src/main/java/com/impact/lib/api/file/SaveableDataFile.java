@@ -1,7 +1,7 @@
 package com.impact.lib.api.file;
 
 public interface SaveableDataFile {
-    void save();
+  void save();
 
-    void reload();
+  void reload();
 }

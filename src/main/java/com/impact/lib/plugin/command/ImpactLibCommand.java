@@ -13,31 +13,31 @@ import java.util.List;
 public class ImpactLibCommand extends UniversalCommand {
 
 
-    public ImpactLibCommand(@NotNull Plugin plugin, @NotNull String key) {
-        super(plugin, key);
-    }
+  public ImpactLibCommand(@NotNull Plugin plugin, @NotNull String key) {
+    super(key);
+  }
 
-    @Override
-    public void onPlayerExecute(@NotNull Player player, int argc, @NotNull String[] args) {
-        ifArgPresentOrElse(0, (arg) -> {
-            response(Impact.simpleMessage("&ahi"));
-        }, () -> {
-            error(0, "Brak argumentu!");
-        });
-    }
+  @Override
+  public void onPlayerExecute(@NotNull Player player, int argc, @NotNull String[] args) {
+    ifArgPresentOrElse(0, (arg) -> {
+      response(Impact.simpleMessage("&ahi"));
+    }, () -> {
+      error(0, "Brak argumentu!");
+    });
+  }
 
-    @Override
-    public @Nullable List<String> onPlayerTabComplete(@NotNull Player player, int argc, @NotNull String[] args) {
-        return null;
-    }
+  @Override
+  public void onConsoleExecute(@NotNull ConsoleCommandSender console, int argc, @NotNull String[] args) {
 
-    @Override
-    public void onConsoleExecute(@NotNull ConsoleCommandSender console, int argc, @NotNull String[] args) {
+  }
 
-    }
+  @Override
+  public @Nullable List<String> onPlayerTabComplete(@NotNull Player player, int argc, @NotNull String[] args) {
+    return null;
+  }
 
-    @Override
-    public @Nullable List<String> onConsoleTabComplete(@NotNull ConsoleCommandSender console, int argc, @NotNull String[] args) {
-        return null;
-    }
+  @Override
+  public @Nullable List<String> onConsoleTabComplete(@NotNull ConsoleCommandSender console, int argc, @NotNull String[] args) {
+    return null;
+  }
 }

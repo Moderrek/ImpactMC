@@ -8,10 +8,10 @@ import java.util.concurrent.CompletableFuture;
 
 public final class AnvilInputContainer extends InputContainer {
 
-    private final InventoryView inventory;
+  private final InventoryView inventory;
 
-    public AnvilInputContainer(Player player, CompletableFuture<Optional<String>> completableFuture, InventoryView inventory) {
-        super(player, completableFuture);
-        this.inventory = inventory;
-    }
+  public AnvilInputContainer(Player player, CompletableFuture<Optional<String>> completableFuture, InventoryView inventory) {
+    super(player, completableFuture);
+    this.inventory = inventory;
+  }
 }

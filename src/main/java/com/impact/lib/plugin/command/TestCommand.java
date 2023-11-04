@@ -11,23 +11,23 @@ import org.jetbrains.annotations.NotNull;
 
 public class TestCommand extends MPlayerCommand {
 
-    public TestCommand(@NotNull Plugin plugin, String key) {
-        super(plugin, key);
+  public TestCommand(@NotNull Plugin plugin, String key) {
+    super(key);
+  }
+
+  @Override
+  public void perform(@NotNull Player player, @NotNull Command command, int argc, @NotNull String @NotNull [] args) {
+    // /find MODERR
+    if (argNotEqual(0, "find")) {
+      error(0, "find");
+      return;
     }
 
-    @Override
-    public void perform(@NotNull Player player, @NotNull Command command, int argc, @NotNull String @NotNull [] args) {
-        // /find MODERR
-        if(argNotEqual(0, "find")) {
-            error(0, "find");
-            return;
-        }
-
-        ifArgPresentOrElse(1, name -> player(name).ifPresentOrElse(plr -> {
-            response("Gracz jest online i go znaleziono!", NamedTextColor.GREEN);
-            responseSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
-            targetBlock(5).ifPresent(block -> block.setType(Material.STONE));
-        }, () -> response("Nie znaleziono gracza.", NamedTextColor.RED)), () -> error(0, "Podaj argument!"));
-    }
+    ifArgPresentOrElse(1, name -> player(name).ifPresentOrElse(plr -> {
+      response("Gracz jest online i go znaleziono!", NamedTextColor.GREEN);
+      responseSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
+      targetBlock(5).ifPresent(block -> block.setType(Material.STONE));
+    }, () -> response("Nie znaleziono gracza.", NamedTextColor.RED)), () -> error(0, "Podaj argument!"));
+  }
 
 }

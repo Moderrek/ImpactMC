@@ -9,20 +9,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class PluginDisableListener implements Listener {
 
-    private final ImpactLibPlugin impact;
+  private final ImpactLibPlugin impact;
 
-    public PluginDisableListener(ImpactLibPlugin plugin) {
-        this.impact = plugin;
-    }
+  public PluginDisableListener(ImpactLibPlugin plugin) {
+    this.impact = plugin;
+  }
 
-    private void clearGuis(Plugin plugin) {
-        impact.getGuiModule().getGuisByPlugin(plugin).forEach(gui -> impact.getGuiModule().removeGui(gui));
-    }
+  @EventHandler
+  public void onPluginDisable(@NotNull PluginDisableEvent event) {
+    clearGuis(event.getPlugin());
+    impact.unregisterCommands(event.getPlugin());
+  }
 
-    @EventHandler
-    public void onPluginDisable(@NotNull PluginDisableEvent event) {
-        clearGuis(event.getPlugin());
-        impact.unregisterCommands(event.getPlugin());
-    }
+  private void clearGuis(Plugin plugin) {
+    impact.getGuiModule().getGuisByPlugin(plugin).forEach(gui -> impact.getGuiModule().removeGui(gui));
+  }
 
 }

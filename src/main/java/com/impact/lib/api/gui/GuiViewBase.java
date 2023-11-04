@@ -6,18 +6,18 @@ import org.bukkit.inventory.InventoryView;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface GuiViewBase<E extends UiElementBase> {
-    Player getPlayer();
+public interface GuiViewBase<E extends UiElementBase<?>> {
+  Player getPlayer();
 
-    Gui getGui();
+  Gui getGui();
 
-    InventoryView getInventoryView();
+  InventoryView getInventoryView();
 
-    int getGuiSize();
+  int getGuiSize();
 
-    Collection<E> getUiElements();
+  Collection<E> getUiElements();
 
-    Optional<E> getUiElement(int slotIndex);
+  Optional<E> getUiElement(int slotIndex);
 
-    void close();
+  void close();
 }
