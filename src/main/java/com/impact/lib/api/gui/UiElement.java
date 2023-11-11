@@ -47,13 +47,6 @@ public abstract class UiElement implements UiElementBase<GuiView>, Cloneable {
   }
 
   final void callDestroy() {
-    // clear timers
-//        Iterator<BukkitTask> i = timers.iterator();
-//        while(i.hasNext()) {
-//            BukkitTask task = i.next();
-//            Impact.cancelTask(task);
-//            i.remove();
-//        }
     timers.forEach(Impact::cancelTask);
     timers.clear();
   }

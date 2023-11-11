@@ -11,6 +11,7 @@ import com.impact.lib.api.item.CustomBlockItem;
 import com.impact.lib.api.module.PluginModule;
 import com.impact.lib.api.registry.ImpactRegistries;
 import com.impact.lib.api.registry.ImpactRegistry;
+import com.impact.lib.plugin.database.ImpactDatabaseManager;
 import com.impact.lib.plugin.listener.PluginDisableListener;
 import com.impact.lib.plugin.module.CustomBlockModule;
 import com.impact.lib.plugin.module.CustomItemModule;
@@ -24,6 +25,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,6 +35,7 @@ public final class ImpactLibPlugin extends JavaPlugin {
   private static volatile ImpactLibPlugin instance;
   private final transient Logger logger = getSLF4JLogger();
   Set<Listener> impactRegisteredListeners = ConcurrentHashMap.newKeySet();
+  private transient ImpactDatabaseManager database;
   private transient CustomItemModule itemModule;
   private transient GuiModule guiModule;
   private transient InputModule inputModule;
@@ -120,6 +123,15 @@ public final class ImpactLibPlugin extends JavaPlugin {
     ImpactLibPlugin.instance = this;
     Impact.setServer(getServer(), logger);
     logger.info("Started loading");
+    // Local database
+    database = new ImpactDatabaseManager(this);
+    try {
+      database.connect();
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+      this.setEnabled(false);
+      return;
+    }
     // Custom Item Module
     itemModule = new CustomItemModule();
     itemModule.enable(this);
@@ -158,4 +170,7 @@ public final class ImpactLibPlugin extends JavaPlugin {
     Impact.setServer(server, logger);
   }
 
+  public @NotNull ImpactDatabaseManager getDatabase() {
+    return database;
+  }
 }
