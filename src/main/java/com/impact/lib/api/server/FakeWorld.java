@@ -624,94 +624,79 @@ public class FakeWorld implements World {
   @Override
   public <T extends Entity> @NotNull T spawn(@NotNull Location location, @NotNull Class<T> clazz, @Nullable Consumer<T> function, CreatureSpawnEvent.@NotNull SpawnReason reason) throws IllegalArgumentException {
     return null;
-  }  @Override
-  public void setClearWeatherDuration(int duration) {
-
   }
 
   @Override
   public <T extends Entity> @NotNull T spawn(@NotNull Location location, @NotNull Class<T> clazz, boolean randomizeData, @Nullable Consumer<T> function) throws IllegalArgumentException {
     return null;
   }  @Override
-  public int getClearWeatherDuration() {
-    return 0;
+  public void setClearWeatherDuration(int duration) {
+
   }
 
   @Override
   public String getName() {
     return name;
-  }  @Override
-  public boolean createExplosion(double x, double y, double z, float power) {
-    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public UUID getUID() {
     return uid;
   }  @Override
-  public boolean createExplosion(double x, double y, double z, float power, boolean setFire) {
-    throw new UnsupportedOperationException("Not supported yet.");
+  public int getClearWeatherDuration() {
+    return 0;
   }
 
   @Override
   public Environment getEnvironment() {
     return env;
-  }  @Override
-  public boolean createExplosion(double x, double y, double z, float power, boolean setFire, boolean breakBlocks) {
-    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public long getSeed() {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
-  public boolean createExplosion(double x, double y, double z, float power, boolean setFire, boolean breakBlocks, @Nullable Entity source) {
-    return false;
+  public boolean createExplosion(double x, double y, double z, float power) {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public int getMinHeight() {
     return 0;
-  }  @Override
-  public boolean createExplosion(Location loc, float power) {
-    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public int getMaxHeight() {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
-  public boolean createExplosion(Location loc, float power, boolean setFire) {
+  public boolean createExplosion(double x, double y, double z, float power, boolean setFire) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public @NotNull BiomeProvider vanillaBiomeProvider() {
     return null;
-  }  @Override
-  public boolean createExplosion(@Nullable Entity source, @NotNull Location loc, float power, boolean setFire, boolean breakBlocks) {
-    return false;
   }
 
   @Override
   public void setMetadata(@NotNull String metadataKey, @NotNull MetadataValue newMetadataValue) {
 
   }  @Override
-  public boolean createExplosion(@NotNull Location loc, float power, boolean setFire, boolean breakBlocks) {
-    return false;
+  public boolean createExplosion(double x, double y, double z, float power, boolean setFire, boolean breakBlocks) {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public List<MetadataValue> getMetadata(String metadataKey) {
     throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public boolean createExplosion(@NotNull Location loc, float power, boolean setFire, boolean breakBlocks, @Nullable Entity source) {
-    return false;
   }
 
   @Override
   public boolean hasMetadata(String metadataKey) {
     throw new UnsupportedOperationException("Not supported yet.");
+  }  @Override
+  public boolean createExplosion(double x, double y, double z, float power, boolean setFire, boolean breakBlocks, @Nullable Entity source) {
+    return false;
   }
 
   @Override
@@ -722,13 +707,13 @@ public class FakeWorld implements World {
   @Override
   public void sendPluginMessage(Plugin source, String channel, byte[] message) {
     throw new UnsupportedOperationException("Not supported yet.");
+  }  @Override
+  public boolean createExplosion(Location loc, float power) {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public Set<String> getListeningPluginChannels() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public boolean getPVP() {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
@@ -736,6 +721,47 @@ public class FakeWorld implements World {
   public @NotNull PersistentDataContainer getPersistentDataContainer() {
     return null;
   }  @Override
+  public boolean createExplosion(Location loc, float power, boolean setFire) {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+
+
+  @Override
+  public boolean createExplosion(@Nullable Entity source, @NotNull Location loc, float power, boolean setFire, boolean breakBlocks) {
+    return false;
+  }
+
+
+
+  @Override
+  public boolean createExplosion(@NotNull Location loc, float power, boolean setFire, boolean breakBlocks) {
+    return false;
+  }
+
+
+
+  @Override
+  public boolean createExplosion(@NotNull Location loc, float power, boolean setFire, boolean breakBlocks, @Nullable Entity source) {
+    return false;
+  }
+
+
+
+
+
+
+
+
+
+  @Override
+  public boolean getPVP() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+
+
+  @Override
   public void setPVP(boolean pvp) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
@@ -764,13 +790,6 @@ public class FakeWorld implements World {
   public @NotNull FallingBlock spawnFallingBlock(@NotNull Location location, @NotNull BlockData data) throws IllegalArgumentException {
     return null;
   }
-
-
-
-
-
-
-
 
 
   @Override
@@ -897,9 +916,6 @@ public class FakeWorld implements World {
   public boolean isUltraWarm() {
     return false;
   }
-
-
-
 
 
   @Override
@@ -1366,18 +1382,6 @@ public class FakeWorld implements World {
   public @Nullable DragonBattle getEnderDragonBattle() {
     return null;
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -105,6 +105,11 @@ public final class ItemBuilder {
 
   // Enchant
 
+  public ItemBuilder enchant(@NotNull final Enchantment enchant) {
+    enchantments.put(enchant, enchant.getStartLevel());
+    return this;
+  }
+
   public ItemBuilder enchant(@NotNull final Enchantment enchantment, final int level) {
     enchantments.put(enchantment, level);
     return this;
@@ -129,7 +134,6 @@ public final class ItemBuilder {
 
     // display name
     Optional.ofNullable(displayName).ifPresent(meta::displayName);
-    // lore
     Optional.ofNullable(lore).ifPresent(meta::lore);
 
     // set meta
@@ -143,7 +147,6 @@ public final class ItemBuilder {
       }
       item.addEnchantment(entry.getKey(), entry.getValue());
     }
-
     return item;
   }
 

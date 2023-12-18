@@ -1,16 +1,9 @@
 package com.impact.lib;
 
-import com.impact.lib._test.CustomGrass;
-import com.impact.lib._test.ExampleBlock;
-import com.impact.lib._test.ExampleItem;
-import com.impact.lib._test.PrzenosnyEnderchest;
-import com.impact.lib.api.block.CustomBlock;
 import com.impact.lib.api.gui.GuiModule;
 import com.impact.lib.api.input.InputModule;
-import com.impact.lib.api.item.CustomBlockItem;
 import com.impact.lib.api.module.PluginModule;
 import com.impact.lib.api.registry.ImpactRegistries;
-import com.impact.lib.api.registry.ImpactRegistry;
 import com.impact.lib.plugin.database.ImpactDatabaseManager;
 import com.impact.lib.plugin.listener.PluginDisableListener;
 import com.impact.lib.plugin.module.CustomBlockModule;
@@ -146,15 +139,6 @@ public final class ImpactLibPlugin extends JavaPlugin {
     customBlockModule.enable(this);
     // Listeners
     Impact.addListener(new PluginDisableListener(this), this);
-
-    ImpactRegistry.register(ImpactRegistries.CUSTOM_ITEM, ExampleItem.IDENTIFIER, new ExampleItem());
-    CustomBlock exampleBlock = new ExampleBlock();
-    ImpactRegistry.register(ImpactRegistries.CUSTOM_BLOCK, ExampleBlock.IDENTIFIER, exampleBlock);
-    CustomGrass customGrass = new CustomGrass();
-    ImpactRegistry.register(ImpactRegistries.CUSTOM_BLOCK, Impact.createKey("grass"), customGrass);
-    ImpactRegistry.register(ImpactRegistries.CUSTOM_ITEM, Impact.createKey("grass"), new CustomBlockItem(customGrass));
-    ImpactRegistry.register(ImpactRegistries.CUSTOM_ITEM, ExampleBlock.IDENTIFIER, new CustomBlockItem(exampleBlock));
-    ImpactRegistry.register(ImpactRegistries.CUSTOM_ITEM, PrzenosnyEnderchest.IDENTIFIER, new PrzenosnyEnderchest());
 
     Impact.getPlayers().forEach(impactPlayer -> {
       ImpactRegistries.CUSTOM_ITEM.getAll().forEach(customItem -> {

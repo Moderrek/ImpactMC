@@ -59,7 +59,7 @@ public record ImpactWorld(World world) {
   }
 
   public void setBlock(NamespacedKey blockId, @NotNull String worldName, int x, int y, int z) {
-    setBlock(blockId, new Location(Impact.getWorldByName(worldName).world(), x, y, z));
+    setBlock(blockId, new Location(Impact.getWorldByName(worldName).orElseThrow().world(), x, y, z));
   }
 
 

@@ -24,6 +24,10 @@ public class ImpactPlayer {
     this.bukkitPlayer = player;
   }
 
+  public static @NotNull ImpactPlayer of(@NotNull final Player player) {
+    return new ImpactPlayer(player);
+  }
+
   public ImpactWorld getImpactWorld() {
     return new ImpactWorld(bukkitPlayer.getWorld());
   }

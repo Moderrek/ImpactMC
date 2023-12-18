@@ -2,8 +2,12 @@ package com.impact.lib;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.impact.lib.api.block.CustomBlock;
+import com.impact.lib.api.command.MCommand;
 import com.impact.lib.api.gui.GuiModule;
+import com.impact.lib.api.item.CustomItem;
 import com.impact.lib.api.player.ImpactPlayer;
+import com.impact.lib.api.registry.ImpactRegistries;
+import com.impact.lib.api.registry.ImpactRegistry;
 import com.impact.lib.api.util.Components;
 import com.impact.lib.api.world.ImpactWorld;
 import net.kyori.adventure.text.Component;
@@ -11,6 +15,7 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -108,13 +113,12 @@ public final class Impact {
     return new ImpactWorld(server.getWorlds().get(0));
   }
 
-  public static @NotNull ImpactWorld getWorldByName(@NotNull String name) {
+  public static @NotNull Optional<ImpactWorld> getWorldByName(@NotNull String name) {
     return server.getWorlds()
         .stream()
         .filter(world -> world.getName().equalsIgnoreCase(name))
         .map(ImpactWorld::new)
-        .findFirst()
-        .orElseThrow();
+        .findFirst();
   }
 
   public static @NotNull Collection<World> getWorlds() {
@@ -162,6 +166,24 @@ public final class Impact {
     if (bukkitPlayer == null) return Optional.empty();
     final ImpactPlayer player = new ImpactPlayer(bukkitPlayer);
     return Optional.of(player);
+  }
+
+  public static @NotNull Optional<OfflinePlayer> getOfflinePlayerByName(@Nullable String player_name) {
+    if (player_name == null) return Optional.empty();
+    final OfflinePlayer offline_player = server.getOfflinePlayerIfCached(player_name);
+    return Optional.ofNullable(offline_player);
+  }
+
+  public static @NotNull OfflinePlayer getOfflinePlayerByUUID(@NotNull final String uuid) {
+    return getOfflinePlayerByUUID(UUID.fromString(uuid));
+  }
+
+  public static @NotNull OfflinePlayer getOfflinePlayerByUUID(@NotNull final UUID uuid) {
+    return server.getOfflinePlayer(uuid);
+  }
+
+  public static @NotNull OfflinePlayer getOfflinePlayerByUUID(final byte[] bytes) {
+    return getOfflinePlayerByUUID(UUID.nameUUIDFromBytes(bytes));
   }
 
   public static @NotNull Optional<ImpactPlayer> getPlayer(@Nullable final Player bukkitPlayer) {
@@ -253,4 +275,17 @@ public final class Impact {
   public static void safeSetBlock(NamespacedKey customBlock, @NotNull Block block) {
     CustomBlock.set(customBlock, block.getLocation());
   }
+
+  public static CustomItem registerItem(@NotNull NamespacedKey key, @NotNull CustomItem item) {
+    return ImpactRegistry.register(ImpactRegistries.CUSTOM_ITEM, key, item);
+  }
+
+  public static CustomBlock registerBlock(@NotNull NamespacedKey key, @NotNull CustomBlock block) {
+    return ImpactRegistry.register(ImpactRegistries.CUSTOM_BLOCK, key, block);
+  }
+
+  public static Command registerCommand(@NotNull NamespacedKey key, @NotNull MCommand<?> command) {
+    return ImpactRegistry.register(ImpactRegistries.COMMAND, key, command);
+  }
+
 }

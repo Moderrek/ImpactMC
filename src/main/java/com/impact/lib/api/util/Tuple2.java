@@ -29,6 +29,11 @@ public class Tuple2<K, V> {
   }
 
   @Override
+  public int hashCode() {
+    return Objects.hash(first, second);
+  }
+
+  @Override
   public boolean equals(Object object) {
     if (this == object) return true;
     if (object == null || getClass() != object.getClass()) return false;
@@ -37,16 +42,7 @@ public class Tuple2<K, V> {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(first, second);
-  }
-
-  @Override
   public String toString() {
-    final StringBuffer sb = new StringBuffer("Tuple2{");
-    sb.append("first=").append(first);
-    sb.append(", second=").append(second);
-    sb.append('}');
-    return sb.toString();
+    return "Tuple2{" + "first=" + first + ", second=" + second + '}';
   }
 }

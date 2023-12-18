@@ -854,13 +854,23 @@ public final class FakeServer implements Server {
       @Override
       public boolean isPermissionSet(final String name) {
         throw new UnsupportedOperationException("Not supported yet.");
+      }
+
+      @Override
+      public boolean isPermissionSet(final Permission perm) {
+        throw new UnsupportedOperationException("Not supported yet.");
       }      @Override
       public void sendMessage(final String message) {
         System.out.println("Console message: " + message);
       }
 
       @Override
-      public boolean isPermissionSet(final Permission perm) {
+      public boolean hasPermission(final String name) {
+        return true;
+      }
+
+      @Override
+      public boolean hasPermission(final Permission perm) {
         throw new UnsupportedOperationException("Not supported yet.");
       }      @Override
       public void sendMessage(final String @NotNull [] messages) {
@@ -870,49 +880,27 @@ public final class FakeServer implements Server {
       }
 
       @Override
-      public boolean hasPermission(final String name) {
-        return true;
-      }      public void sendMessage(final UUID uuid, final String message) {
-        sendMessage(message);
-      }
-
-      @Override
-      public boolean hasPermission(final Permission perm) {
-        throw new UnsupportedOperationException("Not supported yet.");
-      }      public void sendMessage(final UUID uuid, final String[] messages) {
-        sendMessage(messages);
-      }
-
-      @Override
       public PermissionAttachment addAttachment(final Plugin plugin, final String name, final boolean value) {
-        throw new UnsupportedOperationException("Not supported yet.");
-      }      @Override
-      public Server getServer() {
         throw new UnsupportedOperationException("Not supported yet.");
       }
 
       @Override
       public PermissionAttachment addAttachment(final Plugin plugin) {
         throw new UnsupportedOperationException("Not supported yet.");
-      }      @Override
-      public String getName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+      }      public void sendMessage(final UUID uuid, final String message) {
+        sendMessage(message);
       }
 
       @Override
       public PermissionAttachment addAttachment(final Plugin plugin, final String name, final boolean value, final int ticks) {
-        throw new UnsupportedOperationException("Not supported yet.");
-      }      @Override
-      public @NotNull Spigot spigot() {
         throw new UnsupportedOperationException("Not supported yet.");
       }
 
       @Override
       public PermissionAttachment addAttachment(final Plugin plugin, final int ticks) {
         throw new UnsupportedOperationException("Not supported yet.");
-      }      @Override
-      public @NotNull Component name() {
-        throw new UnsupportedOperationException("Not supported yet.");
+      }      public void sendMessage(final UUID uuid, final String[] messages) {
+        sendMessage(messages);
       }
 
       @Override
@@ -922,6 +910,9 @@ public final class FakeServer implements Server {
 
       @Override
       public void recalculatePermissions() {
+        throw new UnsupportedOperationException("Not supported yet.");
+      }      @Override
+      public Server getServer() {
         throw new UnsupportedOperationException("Not supported yet.");
       }
 
@@ -933,6 +924,9 @@ public final class FakeServer implements Server {
       @Override
       public boolean isOp() {
         return true;
+      }      @Override
+      public String getName() {
+        throw new UnsupportedOperationException("Not supported yet.");
       }
 
       @Override
@@ -943,6 +937,9 @@ public final class FakeServer implements Server {
       @Override
       public boolean isConversing() {
         throw new UnsupportedOperationException("Not supported yet.");
+      }      @Override
+      public @NotNull Spigot spigot() {
+        throw new UnsupportedOperationException("Not supported yet.");
       }
 
       @Override
@@ -952,6 +949,9 @@ public final class FakeServer implements Server {
 
       @Override
       public boolean beginConversation(final Conversation conversation) {
+        throw new UnsupportedOperationException("Not supported yet.");
+      }      @Override
+      public @NotNull Component name() {
         throw new UnsupportedOperationException("Not supported yet.");
       }
 
@@ -974,6 +974,8 @@ public final class FakeServer implements Server {
       public void sendRawMessage(@Nullable UUID sender, @NotNull String message) {
 
       }
+
+
 
 
 
@@ -1056,13 +1058,23 @@ public final class FakeServer implements Server {
   @Override
   public @NotNull Merchant createMerchant(@Nullable String title) {
     throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+  @Override
+  public int getMonsterSpawnLimit() {
+    throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
   public void setIdleTimeout(int threshold) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
-  public int getMonsterSpawnLimit() {
+  public int getAnimalSpawnLimit() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+  @Override
+  public int getWaterAnimalSpawnLimit() {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
   public int getIdleTimeout() {
@@ -1070,7 +1082,12 @@ public final class FakeServer implements Server {
   }
 
   @Override
-  public int getAnimalSpawnLimit() {
+  public int getWaterAmbientSpawnLimit() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+  @Override
+  public int getWaterUndergroundCreatureSpawnLimit() {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
   public ChunkGenerator.@NotNull ChunkData createChunkData(@NotNull World world) {
@@ -1078,7 +1095,12 @@ public final class FakeServer implements Server {
   }
 
   @Override
-  public int getWaterAnimalSpawnLimit() {
+  public int getAmbientSpawnLimit() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+  @Override
+  public int getSpawnLimit(@NotNull SpawnCategory spawnCategory) {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
   @Deprecated
@@ -1087,7 +1109,12 @@ public final class FakeServer implements Server {
   }
 
   @Override
-  public int getWaterAmbientSpawnLimit() {
+  public boolean isPrimaryThread() {
+    return true;
+  }
+
+  @Override
+  public @NotNull Component motd() {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
   public @NotNull BossBar createBossBar(@Nullable String title, @NotNull BarColor color, @NotNull BarStyle style, @NotNull BarFlag... flags) {
@@ -1095,50 +1122,7 @@ public final class FakeServer implements Server {
   }
 
   @Override
-  public int getWaterUndergroundCreatureSpawnLimit() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public @NotNull KeyedBossBar createBossBar(@NotNull NamespacedKey key, @Nullable String title, @NotNull BarColor color, @NotNull BarStyle style, @NotNull BarFlag... flags) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public int getAmbientSpawnLimit() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public @NotNull Iterator<KeyedBossBar> getBossBars() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public int getSpawnLimit(@NotNull SpawnCategory spawnCategory) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public @Nullable KeyedBossBar getBossBar(@NotNull NamespacedKey key) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public boolean isPrimaryThread() {
-    return true;
-  }  @Override
-  public boolean removeBossBar(@NotNull NamespacedKey key) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public @NotNull Component motd() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public @Nullable Entity getEntity(@NotNull UUID uuid) {
-    return getPlayer(uuid);
-  }
-
-  @Override
   public @NotNull String getMotd() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public @NotNull double[] getTPS() {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
@@ -1146,15 +1130,12 @@ public final class FakeServer implements Server {
   public @Nullable Component shutdownMessage() {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
-  public @NotNull long[] getTickTimes() {
+  public @NotNull KeyedBossBar createBossBar(@NotNull NamespacedKey key, @Nullable String title, @NotNull BarColor color, @NotNull BarStyle style, @NotNull BarFlag... flags) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public @Nullable String getShutdownMessage() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public double getAverageTickTime() {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
@@ -1162,15 +1143,12 @@ public final class FakeServer implements Server {
   public Warning.@NotNull WarningState getWarningState() {
     return Warning.WarningState.DEFAULT;
   }  @Override
-  public @NotNull CommandMap getCommandMap() {
+  public @NotNull Iterator<KeyedBossBar> getBossBars() {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public @NotNull ItemFactory getItemFactory() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public @Nullable Advancement getAdvancement(@NotNull NamespacedKey key) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
@@ -1178,15 +1156,12 @@ public final class FakeServer implements Server {
   public @NotNull ScoreboardManager getScoreboardManager() {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
-  public @NotNull Iterator<Advancement> advancementIterator() {
+  public @Nullable KeyedBossBar getBossBar(@NotNull NamespacedKey key) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public @Nullable CachedServerIcon getServerIcon() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public @NotNull BlockData createBlockData(@NotNull Material material) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
@@ -1194,15 +1169,12 @@ public final class FakeServer implements Server {
   public @NotNull CachedServerIcon loadServerIcon(@NotNull File file) throws Exception {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
-  public @NotNull BlockData createBlockData(@NotNull Material material, @Nullable Consumer<BlockData> consumer) {
+  public boolean removeBossBar(@NotNull NamespacedKey key) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   public @NotNull CachedServerIcon loadServerIcon(@NotNull BufferedImage image) throws Exception {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }  @Override
-  public @NotNull BlockData createBlockData(@NotNull String data) throws IllegalArgumentException {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
@@ -1210,8 +1182,8 @@ public final class FakeServer implements Server {
   public @NotNull Iterable<? extends Audience> audiences() {
     throw new UnsupportedOperationException("Not supported yet.");
   }  @Override
-  public @NotNull BlockData createBlockData(@Nullable Material material, @Nullable String data) throws IllegalArgumentException {
-    throw new UnsupportedOperationException("Not supported yet.");
+  public @Nullable Entity getEntity(@NotNull UUID uuid) {
+    return getPlayer(uuid);
   }
 
   @Override
@@ -1222,41 +1194,73 @@ public final class FakeServer implements Server {
   @Override
   public @NotNull Set<String> getListeningPluginChannels() {
     throw new UnsupportedOperationException("Not supported yet.");
+  }  @Override
+  public @NotNull double[] getTPS() {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
 
 
+  @Override
+  public @NotNull long[] getTickTimes() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 
+  @Override
+  public double getAverageTickTime() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 
+  @Override
+  public @NotNull CommandMap getCommandMap() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 
+  @Override
+  public @Nullable Advancement getAdvancement(@NotNull NamespacedKey key) {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 
+  @Override
+  public @NotNull Iterator<Advancement> advancementIterator() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 
+  @Override
+  public @NotNull BlockData createBlockData(@NotNull Material material) {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 
+  @Override
+  public @NotNull BlockData createBlockData(@NotNull Material material, @Nullable Consumer<BlockData> consumer) {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 
+  @Override
+  public @NotNull BlockData createBlockData(@NotNull String data) throws IllegalArgumentException {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 
-
-
-
-
-
-
-
+  @Override
+  public @NotNull BlockData createBlockData(@Nullable Material material, @Nullable String data) throws IllegalArgumentException {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 
 

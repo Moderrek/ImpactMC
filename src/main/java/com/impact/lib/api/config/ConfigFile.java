@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface ConfigFile {
   String fileName() default "";
+
   ConfigType type() default ConfigType.YAML;
 }
