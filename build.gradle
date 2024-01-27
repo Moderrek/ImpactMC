@@ -1,6 +1,9 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
+
+apply plugin: 'maven-publish'
 
 group = 'com.impact.lib'
 version = '1.0'
@@ -53,5 +56,17 @@ processResources {
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
         expand props
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.impact.lib'
+            artifactId = 'ImpactMC'
+            version = '1.0'
+
+            from components.java
+        }
     }
 }

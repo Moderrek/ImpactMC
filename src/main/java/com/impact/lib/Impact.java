@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Contract;
@@ -286,6 +287,39 @@ public final class Impact {
 
   public static Command registerCommand(@NotNull NamespacedKey key, @NotNull MCommand<?> command) {
     return ImpactRegistry.register(ImpactRegistries.COMMAND, key, command);
+  }
+
+  public static ArrayList<ItemStack> Items(ItemStack... items) {
+    return Arrays.stream(items).collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  @Contract("_, _ -> new")
+  public static @NotNull ItemStack Item(Material material, int amount) {
+    return new ItemStack(material, amount);
+  }
+
+  @Contract("_ -> new")
+  public static @NotNull ItemStack Item(Material material) {
+    return new ItemStack(material, 1);
+  }
+
+  @Contract("_ -> new")
+  public static @NotNull ItemStack Stack(Material material) {
+    return new ItemStack(material, material.getMaxStackSize());
+  }
+
+  @Contract("_ -> new")
+  public static @NotNull ItemStack Item(String material_name) {
+    final Material material = Material.getMaterial(material_name);
+    if (material == null) throw new RuntimeException("Material of name '" + material_name + "' is unknown!");
+    return new ItemStack(material, 1);
+  }
+
+  @Contract("_ -> new")
+  public static @NotNull ItemStack Stack(String material_name) {
+    final Material material = Material.getMaterial(material_name);
+    if (material == null) throw new RuntimeException("Material of name '" + material_name + "' is unknown!");
+    return new ItemStack(material, material.getMaxStackSize());
   }
 
 }
