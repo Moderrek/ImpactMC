@@ -1,6 +1,5 @@
 package com.impact.lib.api.util;
 
-import org.apache.commons.lang.NullArgumentException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,8 +36,8 @@ public class Result<T, E extends Throwable> {
     return new Result<>(null, new RuntimeException(msg));
   }
 
-  public static <T> Result<T, NullArgumentException> ofNullable(T ok) {
-    if (ok == null) return Result.Err(new NullArgumentException("Presented value is null"));
+  public static <T> Result<T, NullPointerException> ofNullable(T ok) {
+    if (ok == null) return Result.Err(new NullPointerException("Presented value is null"));
     return Result.Ok(ok);
   }
 

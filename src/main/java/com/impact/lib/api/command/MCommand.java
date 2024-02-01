@@ -5,6 +5,7 @@ import com.impact.lib.api.util.Components;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -17,6 +18,8 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -37,7 +40,15 @@ public abstract class MCommand<T> extends Command implements CommandBase<T> {
     this.label = commandLabel;
     this.args = args;
     this.sender = sender;
-    boolean response = onCommand(sender, this, commandLabel, args);
+    boolean response = true;
+    try {
+      response = onCommand(sender, this, commandLabel, args);
+    } catch (Exception exception) {
+      StringWriter sw = new StringWriter();
+      PrintWriter pw = new PrintWriter(sw);
+      exception.printStackTrace(pw);
+      sender.sendMessage(Component.text("Caught exception: " + exception.getMessage()).color(NamedTextColor.RED).hoverEvent(HoverEvent.showText(Component.text(pw.toString()).color(NamedTextColor.RED))));
+    }
     this.label = null;
     this.args = null;
     this.sender = null;

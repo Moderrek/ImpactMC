@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -117,14 +116,14 @@ public final class ImpactLibPlugin extends JavaPlugin {
     Impact.setServer(getServer(), logger);
     logger.info("Started loading");
     // Local database
-    database = new ImpactDatabaseManager(this);
-    try {
-      database.connect();
-    } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
-      this.setEnabled(false);
-      return;
-    }
+//    database = new ImpactDatabaseManager(this);
+//    try {
+//      database.connect();
+//    } catch (ClassNotFoundException | SQLException e) {
+//      e.printStackTrace();
+//      this.setEnabled(false);
+//      return;
+//    }
     // Custom Item Module
     itemModule = new CustomItemModule();
     itemModule.enable(this);
@@ -139,7 +138,6 @@ public final class ImpactLibPlugin extends JavaPlugin {
     customBlockModule.enable(this);
     // Listeners
     Impact.addListener(new PluginDisableListener(this), this);
-
     Impact.getPlayers().forEach(impactPlayer -> {
       ImpactRegistries.CUSTOM_ITEM.getAll().forEach(customItem -> {
         impactPlayer.giveItem(customItem.getItemStack(1));
